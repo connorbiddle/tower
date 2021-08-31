@@ -1,11 +1,21 @@
+import Tower from "./Tower";
+
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
 canvas.width = window.innerWidth - 20;
 canvas.height = window.innerHeight - 20;
 
-const main = () => {
-  requestAnimationFrame(main);
-}
+const tower = new Tower(ctx);
 
-main();
+const mainLoop = () => {
+  ctx.fillStyle = "#c6e9f5";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  tower.update();
+  tower.draw();
+
+  requestAnimationFrame(mainLoop);
+};
+
+mainLoop();
