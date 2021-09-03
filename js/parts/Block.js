@@ -1,3 +1,5 @@
+import Splinter from "./Splinter";
+
 class Block {
   constructor(ctx, gameWidth, prevBlock) {
     this.ctx = ctx;
@@ -13,11 +15,13 @@ class Block {
     this.speed = 1.75;
     this.direction = 1;
     this.destination = null;
-    this.color = `hsl(${Math.random() * 360}, 60%, 55%)`;
+
+    this.color = `hsla(${Math.random() * 360}, 60%, 55%, 1)`;
+    this.splinter = null;
   }
 
   place() {
-    this.splinter();
+    this.breakOff();
     this.speed = 0;
     this.moveDown();
   }
@@ -26,7 +30,7 @@ class Block {
     this.destination = this.y + this.height;
   }
 
-  splinter() {
+  breakOff() {
     const error = this.x - this.prevBlock.x;
     const absError = Math.abs(error);
     const side = error > 0 ? "right" : "left";
@@ -37,12 +41,23 @@ class Block {
     }
 
     if (side === "left") this.x += absError;
+
+    this.splinter = new Splinter(
+      this.ctx,
+      side === "left" ? this.x - absError : this.x + this.width,
+      this.y,
+      absError,
+      this.height,
+      this.color,
+      side
+    );
   }
 
   update() {
     if (this.destination > this.y) this.y += 3;
     this.x += this.speed * this.direction;
     this.handleDirectionChange();
+    if (this.splinter) this.splinter.update();
   }
 
   handleDirectionChange() {
@@ -54,6 +69,7 @@ class Block {
     const { x, y, width, height } = this;
     this.ctx.fillStyle = this.color;
     this.ctx.fillRect(x, y, width, height);
+    if (this.splinter) this.splinter.draw();
   }
 }
 

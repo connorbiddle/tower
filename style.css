@@ -24,11 +24,11 @@ canvas {
   z-index: 10;
   top: 50%;
   transform: translateY(-50%);
-  padding: 0 1rem;
+  padding: 0 2rem;
 }
 
 #game-text.game-started {
-  top: 5rem;
+  top: 2rem;
   transform: none;
 }
 
