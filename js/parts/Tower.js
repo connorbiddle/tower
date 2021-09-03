@@ -9,17 +9,16 @@ class Tower {
     this.currentBlock = null;
     this.previousBlock = null;
 
-    this.setUp();
+    this.createFloor();
   }
 
-  setUp() {
-    this.createFloor();
+  addClickListener() {
     const placeBlock = () => {
       this.currentBlock.place();
       for (let block of this.blocks) block.moveDown();
       this.createBlock();
     };
-    window.addEventListener("click", placeBlock);
+    this.ctx.canvas.addEventListener("click", placeBlock);
   }
 
   createFloor() {

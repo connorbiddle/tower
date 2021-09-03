@@ -7,7 +7,7 @@ class Block {
 
     this.x = this.leftBound;
     this.y = this.ctx.canvas.height / 2;
-    this.height = 30;
+    this.height = 35;
     this.width = 125;
     this.speed = 1.75;
     this.direction = 1;

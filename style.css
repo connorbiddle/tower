@@ -14,4 +14,44 @@ body {
 
 canvas {
   border-radius: 5px;
+  background-color: #c6e9f5;
+}
+
+#game-text {
+  position: absolute;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  z-index: 10;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#game-text.game-started {
+  top: 10%;
+}
+
+#game-text h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+#game-text h2 {
+  font-size: 1.25rem;
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+}
+
+#game-text button {
+  cursor: pointer;
+  background: #42b842;
+  color: #fff;
+  border: none;
+  font-family: inherit;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 0.5em 1.5em;
+  border-radius: 100px;
 }
