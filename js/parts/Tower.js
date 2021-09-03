@@ -23,20 +23,29 @@ class Tower {
 
   createFloor() {
     const floor = new Block(this.ctx, this.gameWidth);
+
+    floor.speed = 0;
     floor.x = floor.leftBound + this.gameWidth / 2 - floor.width / 2;
-    floor.place();
+    floor.y += floor.height;
+
+    this.currentBlock = floor;
     this.blocks.push(floor);
-    this.previousBlock = floor;
     this.createBlock();
   }
 
   createBlock() {
     setTimeout(() => {
       if (this.blocks.length > 20) this.blocks.shift();
-      const block = new Block(this.ctx, this.gameWidth);
+
+      this.previousBlock = this.currentBlock;
+      const block = new Block(this.ctx, this.gameWidth, this.previousBlock);
       this.blocks.push(block);
       this.currentBlock = block;
     }, 250);
+  }
+
+  setPrevBlock(block) {
+    this.previousBlock = block;
   }
 
   update() {

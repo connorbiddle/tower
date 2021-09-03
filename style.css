@@ -24,10 +24,12 @@ canvas {
   z-index: 10;
   top: 50%;
   transform: translateY(-50%);
+  padding: 0 1rem;
 }
 
 #game-text.game-started {
-  top: 10%;
+  top: 5rem;
+  transform: none;
 }
 
 #game-text h1 {
