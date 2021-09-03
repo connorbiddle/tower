@@ -7,12 +7,13 @@ class Block {
 
     this.leftBound = ctx.canvas.width / 2 - gameWidth / 2;
     this.rightBound = ctx.canvas.width / 2 + gameWidth / 2;
+    console.log(prevBlock);
 
     this.x = this.leftBound;
     this.y = this.ctx.canvas.height / 2;
     this.height = 35;
     this.width = prevBlock?.width || 125;
-    this.speed = 1.75;
+    this.speed = 3;
     this.direction = 1;
     this.destination = null;
 
