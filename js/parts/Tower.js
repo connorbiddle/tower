@@ -10,6 +10,7 @@ class Tower {
     this.gameWidth = 300;
     this.speed = 3;
     this.score = 0;
+    this.nextHue = Math.random() * 360;
     this.blocks = [];
     this.currentBlock = null;
     this.prevBlock = null;
@@ -26,9 +27,10 @@ class Tower {
   }
 
   createFloor() {
-    const floor = new Block(this.ctx, this.gameWidth, null, 0);
+    const { ctx, gameWidth, nextHue } = this;
+    const floor = new Block(ctx, gameWidth, null, 0, nextHue);
 
-    floor.x = floor.leftBound + this.gameWidth / 2 - floor.width / 2;
+    floor.x = floor.leftBound + gameWidth / 2 - floor.width / 2;
     floor.y += floor.height;
 
     this.currentBlock = floor;
@@ -47,9 +49,10 @@ class Tower {
 
       this.prevBlock = this.currentBlock;
       this.speed += 0.1;
+      this.nextHue += 17.5;
 
-      const { ctx, gameWidth, prevBlock, startGame, speed } = this;
-      const block = new Block(ctx, gameWidth, prevBlock, speed);
+      const { ctx, gameWidth, prevBlock, speed, nextHue } = this;
+      const block = new Block(ctx, gameWidth, prevBlock, speed, nextHue);
       this.blocks.push(block);
 
       this.currentBlock = block;

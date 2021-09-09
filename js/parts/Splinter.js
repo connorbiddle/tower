@@ -1,11 +1,11 @@
 class Splinter {
-  constructor(ctx, x, y, width, height, color, direction) {
+  constructor(ctx, x, y, width, height, hue, direction) {
     this.ctx = ctx;
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
-    this.color = color;
+    this.hue = hue;
     this.direction = direction;
     this.opacity = 1;
   }
@@ -22,8 +22,9 @@ class Splinter {
   }
 
   draw() {
-    this.ctx.fillStyle = this.color.replace(/[\d\.]+\)$/g, `${this.opacity})`);
-    this.ctx.fillRect(this.x, this.y, this.width, this.height);
+    const { ctx, hue, opacity, x, y, width, height } = this;
+    ctx.fillStyle = `hsla(${hue}, 60%, 55%, ${opacity})`;
+    ctx.fillRect(x, y, width, height);
   }
 }
 

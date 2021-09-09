@@ -1,7 +1,7 @@
 import Splinter from "./Splinter";
 
 class Block {
-  constructor(ctx, gameWidth, prevBlock, speed) {
+  constructor(ctx, gameWidth, prevBlock, speed, hue) {
     this.ctx = ctx;
     this.prevBlock = prevBlock;
 
@@ -16,6 +16,7 @@ class Block {
     this.direction = 1;
     this.destination = null;
 
+    this.hue = hue;
     this.color = `hsla(${Math.random() * 360}, 60%, 55%, 1)`;
     this.splinter = null;
 
@@ -40,15 +41,10 @@ class Block {
 
     if (side === "left") this.x += absError;
 
-    this.splinter = new Splinter(
-      this.ctx,
-      side === "left" ? this.x - absError : this.x + this.width,
-      this.y,
-      absError,
-      this.height,
-      this.color,
-      side
-    );
+    const { ctx, width, y, height, hue } = this;
+    const x = side === "left" ? this.x - absError : this.x + width;
+
+    this.splinter = new Splinter(ctx, x, y, absError, height, hue, side);
   }
 
   update() {
@@ -64,8 +60,8 @@ class Block {
   }
 
   draw() {
-    const { x, y, width, height } = this;
-    this.ctx.fillStyle = this.color;
+    const { x, y, width, height, hue } = this;
+    this.ctx.fillStyle = `hsla(${hue}, 60%, 55%, 1)`;
     this.ctx.fillRect(x, y, width, height);
     if (this.splinter) this.splinter.draw();
   }
