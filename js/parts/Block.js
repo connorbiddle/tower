@@ -1,7 +1,7 @@
 import Splinter from "./Splinter";
 
 class Block {
-  constructor(ctx, gameWidth, prevBlock) {
+  constructor(ctx, gameWidth, prevBlock, speed) {
     this.ctx = ctx;
     this.prevBlock = prevBlock;
 
@@ -12,12 +12,14 @@ class Block {
     this.y = this.ctx.canvas.height / 2;
     this.height = 40;
     this.width = prevBlock?.width || 125;
-    this.speed = 3;
+    this.speed = speed;
     this.direction = 1;
     this.destination = null;
 
     this.color = `hsla(${Math.random() * 360}, 60%, 55%, 1)`;
     this.splinter = null;
+
+    console.log(`Speed: ${this.speed}`);
   }
 
   place() {

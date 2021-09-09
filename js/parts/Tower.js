@@ -8,9 +8,11 @@ class Tower {
 
   generate() {
     this.gameWidth = 300;
+    this.speed = 3;
+    this.score = 0;
     this.blocks = [];
     this.currentBlock = null;
-    this.previousBlock = null;
+    this.prevBlock = null;
     this.createFloor();
   }
 
@@ -24,9 +26,8 @@ class Tower {
   }
 
   createFloor() {
-    const floor = new Block(this.ctx, this.gameWidth, null, this.startGame);
+    const floor = new Block(this.ctx, this.gameWidth, null, 0);
 
-    floor.speed = 0;
     floor.x = floor.leftBound + this.gameWidth / 2 - floor.width / 2;
     floor.y += floor.height;
 
@@ -36,8 +37,6 @@ class Tower {
   }
 
   createBlock() {
-    console.log(this.currentBlock?.width);
-
     if (this.currentBlock.width < 2) {
       this.generate();
       return;
@@ -46,20 +45,19 @@ class Tower {
     setTimeout(() => {
       if (this.blocks.length > 20) this.blocks.shift();
 
-      this.previousBlock = this.currentBlock;
-      const block = new Block(
-        this.ctx,
-        this.gameWidth,
-        this.previousBlock,
-        this.startGame
-      );
+      this.prevBlock = this.currentBlock;
+      this.speed += 0.1;
+
+      const { ctx, gameWidth, prevBlock, startGame, speed } = this;
+      const block = new Block(ctx, gameWidth, prevBlock, speed);
       this.blocks.push(block);
+
       this.currentBlock = block;
     }, 250);
   }
 
   setPrevBlock(block) {
-    this.previousBlock = block;
+    this.prevBlock = block;
   }
 
   update() {

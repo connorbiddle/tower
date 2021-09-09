@@ -14,7 +14,7 @@ const startGame = () => {
 };
 
 const sizeGame = () => {
-  canvas.width = window.innerWidth;
+  canvas.width = 300;
   canvas.height = window.innerHeight;
 };
 
