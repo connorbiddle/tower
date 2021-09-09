@@ -17,7 +17,6 @@ class Block {
     this.destination = null;
 
     this.hue = hue;
-    this.color = `hsla(${Math.random() * 360}, 60%, 55%, 1)`;
     this.splinter = null;
 
     console.log(`Speed: ${this.speed}`);
