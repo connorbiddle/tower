@@ -5,16 +5,34 @@
 }
 
 body {
+  position: relative;
   background-color: #272133;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
+  background-color: rgb(202, 227, 255);
+}
+
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgb(177, 209, 247);
+  background: linear-gradient(
+    0deg,
+    rgba(177, 209, 247, 0.85) 0%,
+    rgba(177, 209, 247, 0) 25%,
+    rgba(177, 209, 247, 0) 100%
+  );
+  z-index: 1;
 }
 
 canvas {
   border-radius: 5px;
-  background-color: #c6e9f5;
 }
 
 #game-text {

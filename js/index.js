@@ -4,23 +4,27 @@ import GameText from "./parts/GameText";
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth - 20;
-canvas.height = window.innerHeight - 20;
-
-let gameStarted = false;
+let gameRunning = false;
+let tower;
 
 const startGame = () => {
-  gameStarted = true;
+  tower = new Tower(ctx);
+  gameRunning = true;
   tower.addClickListener();
 };
 
-const tower = new Tower(ctx);
+const sizeGame = () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+};
+
+sizeGame();
 const gameText = new GameText(startGame);
 
 const mainLoop = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  if (gameStarted) {
+  if (gameRunning) {
     tower.update();
     tower.draw();
   }

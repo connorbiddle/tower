@@ -7,11 +7,10 @@ class Block {
 
     this.leftBound = ctx.canvas.width / 2 - gameWidth / 2;
     this.rightBound = ctx.canvas.width / 2 + gameWidth / 2;
-    console.log(prevBlock);
 
     this.x = this.leftBound;
     this.y = this.ctx.canvas.height / 2;
-    this.height = 35;
+    this.height = 40;
     this.width = prevBlock?.width || 125;
     this.speed = 3;
     this.direction = 1;
@@ -22,8 +21,8 @@ class Block {
   }
 
   place() {
-    this.breakOff();
     this.speed = 0;
+    this.breakOff();
     this.moveDown();
   }
 
@@ -36,10 +35,6 @@ class Block {
     const absError = Math.abs(error);
     const side = error > 0 ? "right" : "left";
     this.width -= absError;
-
-    if (this.width < 1) {
-      alert("Game over");
-    }
 
     if (side === "left") this.x += absError;
 
