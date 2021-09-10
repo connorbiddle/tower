@@ -15,9 +15,9 @@ class Splinter {
     this.y += 3;
 
     if (this.direction === "right") {
-      this.x += 1.75;
+      this.x += 1.25;
     } else if (this.direction === "left") {
-      this.x -= 1.75;
+      this.x -= 1.25;
     }
   }
 
