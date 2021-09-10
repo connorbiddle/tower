@@ -8,7 +8,7 @@ let gameRunning = false;
 let tower;
 
 const startGame = () => {
-  tower = new Tower(ctx);
+  tower = new Tower(ctx, onScoreChange);
   gameRunning = true;
   tower.addClickListener();
 };
@@ -18,8 +18,11 @@ const sizeGame = () => {
   canvas.height = window.innerHeight;
 };
 
-sizeGame();
 const gameText = new GameText(startGame);
+
+const onScoreChange = score => gameText.setScore(score);
+
+sizeGame();
 
 const mainLoop = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);

@@ -7,7 +7,6 @@ class GameText {
       button: document.querySelector("#start-game"),
     };
 
-    this.score = 0;
     this.startGame = startGame;
     this.initialState();
   }
@@ -21,8 +20,14 @@ class GameText {
     this.els.button.remove();
     this.els.container.classList.add("game-started");
 
+    this.setScore(1);
     setTimeout(this.startGame, 200);
   };
+
+  setScore(score) {
+    console.log(`Setting text to ${score}`);
+    this.els.h2.textContent = score;
+  }
 }
 
 export default GameText;

@@ -1,19 +1,20 @@
 import Block from "./Block";
 
 class Tower {
-  constructor(ctx) {
+  constructor(ctx, onScoreChange) {
     this.ctx = ctx;
+    this.onScoreChange = onScoreChange;
     this.generate();
   }
 
   generate() {
     this.gameWidth = this.ctx.canvas.width;
     this.speed = 3;
-    this.score = 0;
     this.nextHue = Math.random() * 360;
     this.blocks = [];
     this.currentBlock = null;
     this.prevBlock = null;
+    this.score = 0;
     this.createFloor();
   }
 
@@ -43,6 +44,9 @@ class Tower {
       this.generate();
       return;
     }
+
+    this.score += 1;
+    this.onScoreChange(this.score);
 
     setTimeout(() => {
       if (this.blocks.length > 20) this.blocks.shift();
