@@ -8,9 +8,15 @@ let gameRunning = false;
 let tower;
 
 const startGame = () => {
-  tower = new Tower(ctx, onScoreChange);
+  tower = new Tower(ctx, onScoreChange, gameOver);
   gameRunning = true;
   tower.addClickListener();
+};
+
+const gameOver = () => {
+  gameRunning = false;
+  gameText.gameOver();
+  tower = null;
 };
 
 const sizeGame = () => {

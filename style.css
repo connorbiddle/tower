@@ -45,9 +45,14 @@ canvas {
   padding: 0 2rem;
 }
 
-#game-text.game-started {
+#game-text.game-running {
   top: 2rem;
   transform: none;
+}
+
+#game-text.game-running button,
+#game-text.game-running h1 {
+  display: none;
 }
 
 #game-text h1 {

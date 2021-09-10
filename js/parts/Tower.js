@@ -1,15 +1,16 @@
 import Block from "./Block";
 
 class Tower {
-  constructor(ctx, onScoreChange) {
+  constructor(ctx, onScoreChange, gameOver) {
     this.ctx = ctx;
     this.onScoreChange = onScoreChange;
+    this.gameOver = gameOver;
     this.generate();
   }
 
   generate() {
     this.gameWidth = this.ctx.canvas.width;
-    this.speed = 3;
+    this.speed = 3.5;
     this.nextHue = Math.random() * 360;
     this.blocks = [];
     this.currentBlock = null;
@@ -20,6 +21,7 @@ class Tower {
 
   addClickListener() {
     const placeBlock = () => {
+      if (!this.currentBlock) return;
       this.currentBlock.place();
       for (let block of this.blocks) block.moveDown();
       this.createBlock();
@@ -40,8 +42,9 @@ class Tower {
   }
 
   createBlock() {
-    if (this.currentBlock.width < 2) {
-      this.generate();
+    if (this.currentBlock?.width < 2) {
+      this.currentBlock = null;
+      this.gameOver();
       return;
     }
 
