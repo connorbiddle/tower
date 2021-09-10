@@ -23,7 +23,7 @@ class Block {
 
   place() {
     this.speed = 0;
-    this.breakOff();
+    this.handleOverhang();
     this.moveDown();
   }
 
@@ -31,10 +31,21 @@ class Block {
     this.destination = this.y + this.height;
   }
 
-  breakOff() {
+  handleOverhang() {
     const error = this.x - this.prevBlock.x;
     const absError = Math.abs(error);
     const side = error > 0 ? "right" : "left";
+
+    if (absError < 3) {
+      // Allow very slight error
+      this.x = this.prevBlock.x;
+      return;
+    }
+
+    this.generateSplinter(absError, side);
+  }
+
+  generateSplinter(absError, side) {
     this.width -= absError;
 
     if (side === "left") this.x += absError;
