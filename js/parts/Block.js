@@ -16,10 +16,9 @@ class Block {
     this.direction = 1;
     this.destination = null;
 
+    this.opacity = 0;
     this.hue = hue;
     this.splinter = null;
-
-    console.log(`Speed: ${this.speed}`);
   }
 
   place() {
@@ -48,6 +47,7 @@ class Block {
 
   update() {
     if (this.destination > this.y) this.y += 3;
+    if (this.opacity < 1) this.opacity += 0.075;
     this.x += this.speed * this.direction;
     this.handleDirectionChange();
     if (this.splinter) this.splinter.update();
@@ -59,8 +59,8 @@ class Block {
   }
 
   draw() {
-    const { x, y, width, height, hue } = this;
-    this.ctx.fillStyle = `hsla(${hue}, 60%, 55%, 1)`;
+    const { x, y, width, height, hue, opacity } = this;
+    this.ctx.fillStyle = `hsla(${hue}, 60%, 55%, ${opacity})`;
     this.ctx.fillRect(x, y, width, height);
     if (this.splinter) this.splinter.draw();
   }
