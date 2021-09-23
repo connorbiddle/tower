@@ -26,9 +26,6 @@ class Tower {
 
   placeCurrentBlock = () => {
     if (!this.clicksEnabled || !this.currentBlock) return;
-    console.log(this.clicksEnabled);
-
-    console.log("placing");
     this.currentBlock.place();
     for (let block of this.blocks) block.moveDown();
     this.createBlock();
