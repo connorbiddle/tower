@@ -16,18 +16,23 @@ class Tower {
     this.currentBlock = null;
     this.prevBlock = null;
     this.score = 0;
+    this.clicksEnabled = true;
     this.createFloor();
   }
 
   addClickListener() {
-    const placeBlock = () => {
-      if (!this.currentBlock) return;
-      this.currentBlock.place();
-      for (let block of this.blocks) block.moveDown();
-      this.createBlock();
-    };
-    document.body.addEventListener("click", placeBlock);
+    document.body.addEventListener("click", this.placeCurrentBlock);
   }
+
+  placeCurrentBlock = () => {
+    if (!this.clicksEnabled || !this.currentBlock) return;
+    console.log(this.clicksEnabled);
+
+    console.log("placing");
+    this.currentBlock.place();
+    for (let block of this.blocks) block.moveDown();
+    this.createBlock();
+  };
 
   createFloor() {
     const { ctx, gameWidth, nextHue } = this;
@@ -50,6 +55,7 @@ class Tower {
 
     this.score += 1;
     this.onScoreChange(this.score);
+    this.clicksEnabled = false;
 
     setTimeout(() => {
       if (this.blocks.length > 20) this.blocks.shift();
@@ -61,8 +67,8 @@ class Tower {
       const { ctx, gameWidth, prevBlock, speed, nextHue } = this;
       const block = new Block(ctx, gameWidth, prevBlock, speed, nextHue);
       this.blocks.push(block);
-
       this.currentBlock = block;
+      this.clicksEnabled = true;
     }, 250);
   }
 
